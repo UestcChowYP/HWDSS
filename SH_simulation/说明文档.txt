@@ -1,0 +1,98 @@
+% 主程序
+% NormalCoord:计算入射光场（物光场）的归一化坐标
+% zernikeN：前N项zernike多项式的生成函数
+% WavefrontGrad:计算zernike多项式在每个孔径位置的波前斜率
+% zernikeWaveFun：zernike波前生成函数
+% HartmanDiff：生成经过hartman的光场
+% PositionFunc：计算质心位置的func
+% HartmanWavefront：主函数
+
+% zernikeReWave：net处理后的波前再现
+
+% 待整理的程序
+% PositionCaltest：质心位置与波前斜率测试
+% FlhfDifftest：FlhfDiff函数测试
+% FLHForigin：焦平面记录结果测试
+% FLHFtest：焦平面记录结果生成函数FlhfDiff测试
+% zernfun：zernike多项式生成函数（来自matlab）
+% zernikeWavetest：波前生成方法测试，函数测试
+% 
+
+%% 待解决问题：S-H探测器和采集位置的大小关系不确定（由实际情况来定），再现出来的结果相差一个常系数
+
+%% 先验分布（参考论文-显微成像）
+zernikeA = ones(N,1);
+zernikeA(1:2,1)=4*pi;
+zernikeA(3,1)=0.4*pi;
+zernikeA(4:5,1)=3*pi;
+zernikeA(6,1)=pi;
+zernikeA(7,1)=1.6*pi;
+zernikeA(8,1)=4*pi;
+zernikeA(9,1)=2.8*pi;
+zernikeA(10,1)=1.2*pi;
+zernikeA(11,1)=0.4*pi;
+zernikeA(12,1)=2.4*pi;
+zernikeA(13,1)=0.6*pi;
+zernikeA(14,1)=2.6*pi;
+zernikeA(15,1)=1.6*pi;
+zernikeA(16:17,1)=0.8*pi;
+zernikeA(18:21,1)=1.2*pi;
+zernikeA(22,1)=0.4*pi;
+zernikeA(23,1)=0.2*pi;
+zernikeA(24,1)=0.8*pi;
+zernikeA(25,1)=0.6*pi;
+zernikeA(26,1)=0.4*pi;
+zernikeA(27,1)=3.2*pi;
+zernikeA(28,1)=0.6*pi;
+zernikeA(29,1)=0.2*pi;
+zernikeA(30:31,1)=0.4*pi;
+zernikeA(32,1)=0.8*pi;
+zernikeA(33,1)=0.4*pi;
+zernikeA(32:36,1)=0.8*pi;
+zernikeA(37:45,1)=0.4*pi;
+zernikeA(46:52,1)=0.2*pi;
+zernikeA(53,1)=0.5*pi;
+zernikeA(54,1)=1.2*pi;
+zernikeA(55:119,1)=0.2*pi;
+
+%% 测试集分布
+zernikeA = ones(N,1);
+zernikeA(1:2,1)=5*pi;
+zernikeA(3,1)=0.5*pi;
+zernikeA(4:5,1)=4*pi;
+zernikeA(6,1)=1.2pi;
+zernikeA(7,1)=2*pi;
+zernikeA(8,1)=5*pi;
+zernikeA(9,1)=2.8*pi;
+zernikeA(10,1)=1.2*pi;
+zernikeA(11,1)=0.4*pi;
+zernikeA(12,1)=3*pi;
+zernikeA(13,1)=0.6*pi;
+zernikeA(14,1)=3*pi;
+zernikeA(15,1)=1.8*pi;
+zernikeA(16:17,1)=0.8*pi;
+zernikeA(18:21,1)=1.5*pi;
+zernikeA(22,1)=0.4*pi;
+zernikeA(23,1)=0.2*pi;
+zernikeA(24,1)=0.8*pi;
+zernikeA(25,1)=0.6*pi;
+zernikeA(26,1)=0.4*pi;
+zernikeA(27,1)=3.2*pi;
+zernikeA(28,1)=0.8*pi;
+zernikeA(29,1)=0.2*pi;
+zernikeA(30:31,1)=0.4*pi;
+zernikeA(32,1)=0.8*pi;
+zernikeA(33,1)=0.4*pi;
+zernikeA(32:36,1)=0.8*pi;
+zernikeA(37:45,1)=0.4*pi;
+zernikeA(46:52,1)=0.3*pi;
+zernikeA(53,1)=0.8*pi;
+zernikeA(54,1)=1.5*pi;
+zernikeA(55:119,1)=0.3*pi;
+
+%%直接波前再现
+zernikeA = ones(N,1);
+zernikeA(1:5,1)=1.8*pi;
+zernikeA(6:20,1)=0.5*pi;
+zernikeA(21:54,1)=0.2*pi;
+zernikeA(55:119,1)=0.1*pi;
